@@ -1,0 +1,1 @@
+var service = new Service();
