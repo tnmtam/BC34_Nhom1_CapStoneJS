@@ -38,7 +38,7 @@ function renderHTML(data) {
         <td>${product.type}</td>
         <td>
             <button class="btn btn-success" data-toggle="modal"
-            data-target="#myModal">Sửa</button>
+            data-target="#myModal" onclick="editProduct(${product.id})">Sửa</button>
             <button class="btn btn-danger" onclick="deleteProduct(${product.id})">Xóa</button>
         </td>
       </tr>
@@ -61,6 +61,96 @@ function deleteProduct(id) {
         console.log(error);
         });
 }
+
+getEle("btnThemSanPham").addEventListener("click", function () {
+    //Tạo nút "Add"
+    var btnAdd = `<button class="btn btn-success" onclick="addProduct()">Add</button>`;
+    document.getElementsByClassName("modal-footer")[0].innerHTML = btnAdd;
+});
+
+/**
+ * Add Product
+ */
+function addProduct() {
+    var name = getEle("name").value;
+    var price = getEle("price").value;
+    var screen = getEle("screen").value;
+    var backCamera = getEle("backCamera").value;
+    var frontCamera = getEle("frontCamera").value;
+    var img = getEle("img").value;
+    var desc = getEle("desc").value;
+    var type = getEle("type").value;
+
+  
+    var product = new Product("", name, price, screen, backCamera, frontCamera, img, desc, type);
+    
+    service
+      .addProductApi(product)
+      .then(function() {
+        fetchData();
+        //Tắt hộp thoại modal
+        document.getElementsByClassName("close")[0].click();
+        })
+      .catch(function(error) {
+        console.log(error);
+        });
+};
+
+/**
+ * Edit product
+ */
+
+ function editProduct(id) {
+    document.getElementsByClassName("modal-title")[0].innerHTML = "Update Sản Phẩm";
+  
+    var btnUpdate = `<button class="btn btn-success" onclick="updateProduct(${id})">Update</button>`;
+    document.getElementsByClassName("modal-footer")[0].innerHTML = btnUpdate;
+  
+    service.getProductById(id)
+      .then(function(result){
+        //showw thông tin ra các thẻ input
+        getEle("name").value = result.data.name;
+        getEle("price").value = result.data.price;
+        getEle("screen").value = result.data.screen;
+        getEle("backCamera").value = result.data.backCamera;
+        getEle("frontCamera").value = result.data.frontCamera;
+        getEle("img").value = result.data.img;
+        getEle("desc").value = result.data.desc;
+        getEle("type").value = result.data.type;
+      })  
+      .catch(function(error){
+        console.log(error);
+      });
+};
+
+/**
+ * Update Product
+ */
+
+function updateProduct(id){
+    var name = getEle("name").value;
+    var price = getEle("price").value;
+    var screen = getEle("screen").value;
+    var backCamera = getEle("backCamera").value;
+    var frontCamera = getEle("frontCamera").value;
+    var img = getEle("img").value;
+    var desc = getEle("desc").value;
+    var type = getEle("type").value;
+
+  
+    var product = new Product(id, name, price, screen, backCamera, frontCamera, img, desc, type);
+  
+    service.updateProductApi(product)
+      .then(function() {
+        fetchData();
+        //Tắt hộp thoại modal
+        document.getElementsByClassName("close")[0].click();
+      })
+      .catch(function(error){
+        console.log(error);
+      });
+};
+
 
 
 
