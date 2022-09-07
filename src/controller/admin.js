@@ -1,4 +1,5 @@
 var service = new Service();
+var validation = new Validation();
 
 function getEle(id) {
     return document.getElementById(id);
@@ -81,6 +82,68 @@ function addProduct() {
     var desc = getEle("desc").value;
     var type = getEle("type").value;
 
+    //Validation
+    var isValid = true;
+    //Name
+    isValid = validation.kiemTraRong(
+        name,
+        "tbnName",
+        "Vui lòng không để trống!"
+    );
+    //Price
+    isValid &= validation.kiemTraRong(
+        price,
+        "tbPrice",
+        "Vui lòng không để trống!"
+    )
+        && validation.kiemTraDoDaiKiTu(
+            price,
+            "tbPrice",
+            "Vui lòng nhập lớn hơn đơn vị hàng trăm !",
+            3,
+            10
+        );
+    //Screen
+    isValid = validation.kiemTraRong(
+        screen,
+        "tbScreen",
+        "Vui lòng không để trống!"
+    );
+    //BackCamera
+    isValid = validation.kiemTraRong(
+        backCamera,
+        "tbBackCamera",
+        "Vui lòng không để trống!"
+    );
+    //FrontCamera
+    isValid = validation.kiemTraRong(
+        frontCamera,
+        "tbFrontCamera",
+        "Vui lòng không để trống!"
+    );
+    //Img
+    isValid = validation.kiemTraRong(
+        img,
+        "tbImage",
+        "Vui lòng không để trống!"
+    );
+    //Desc
+    isValid = validation.kiemTraRong(
+        desc,
+        "tbDesc",
+        "Vui lòng không để trống!"
+    );
+    //Type
+    isValid = validation.kiemTraRong(
+        type,
+        "tbType",
+        "Vui lòng không để trống!"
+    );
+   
+    if (!isValid) return null;
+
+
+    //End validation
   
     var product = new Product("", name, price, screen, backCamera, frontCamera, img, desc, type);
     
@@ -106,8 +169,9 @@ function addProduct() {
     var btnUpdate = `<button class="btn btn-success" onclick="updateProduct(${id})">Update</button>`;
     document.getElementsByClassName("modal-footer")[0].innerHTML = btnUpdate;
   
-    service.getProductById(id)
-      .then(function(result){
+    service
+        .getProductById(id)
+        .then(function(result){
         //showw thông tin ra các thẻ input
         getEle("name").value = result.data.name;
         getEle("price").value = result.data.price;
@@ -140,15 +204,16 @@ function updateProduct(id){
   
     var product = new Product(id, name, price, screen, backCamera, frontCamera, img, desc, type);
   
-    service.updateProductApi(product)
-      .then(function() {
+    service
+        .updateProductApi(product)
+        .then(function() {
         fetchData();
         //Tắt hộp thoại modal
         document.getElementsByClassName("close")[0].click();
-      })
-      .catch(function(error){
-        console.log(error);
-      });
+        })
+        .catch(function(error){
+            console.log(error);
+        });
 };
 
 
