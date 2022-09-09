@@ -89,12 +89,14 @@
             <button
               class="header__cart-btn "
               data-toggle="modal"
-              data-target="#myModal"
-              style="width: 50px;"
+              data-target="#myModalPay"
+              style="width: 40px; height:60px; border-radius: 40%;"
             >
-              <i class="header__cart-icon fa-solid fa-cart-shopping fa-2xl" ></i>
+              <i class="header__cart-icon fa-solid fa-cart-shopping" style="font-size:20px; margin-top:10px"></i>
               <div class="header__cart-price">
-                <p class="header__cart-num"><span>0</span><sub>$</sub></p>
+                <p class="header__cart-num">
+                  <span style="font-weight:bold; color:red">0</span>
+                </p>
               </div>
           
             </button>
@@ -167,7 +169,7 @@
 
       <!--KetThuc Tabmenu-->
 
-      <!-- The Modal -->
+      <!-- The Modal Add-->
       <div class="modal fade" id="myModal">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -247,6 +249,43 @@
                 <label>Type</label>
                 <textarea name="" id="type" class="form-control" placeholder="Nhập vào loại phone"></textarea>
                 <span class="text-danger" id="tbType"></span>
+              </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer"></div>
+          </div>
+        </div>
+      </div>
+      <!-- The Modal Pay -->
+      <div class="modal fade" id="myModalPay">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Giỏ hàng</h4>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="form-group">
+                <label>Name</label>
+                <input
+                  id="name"
+                  class="form-control"
+                  placeholder="Nhập vào tên điện thoại"
+                />
+                <span class="text-danger" id="tbnName"></span>
+              </div>
+              <div class="form-group">
+                <label>Price</label>
+                <input
+                  id="price"
+                  class="form-control"
+                  placeholder="Nhập vào giá tiền"
+                />
+                <span class="text-danger" id="tbPrice"></span>
               </div>
             </div>
             <!-- Modal footer -->

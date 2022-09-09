@@ -1,4 +1,6 @@
 var service = new Service();
+var cart = [];
+
 
 function getEle(id) {
   return document.getElementById(id);
@@ -26,6 +28,32 @@ function fetchData() {
     });
 }
 fetchData();
+//Render pay
+function renderPay() {
+  var content = "";
+  var total = 0;
+  cart.forEach(function (cartItem) {
+    total = 0 + parseInt(total + cartItem.product.price*1);
+    content += `
+    
+    <tr>
+      <td>${cartItem.product.id}</td>
+      <td>${cartItem.product.name}</td>
+      <td>${cartItem.product.price}</td>
+      <td><img width="50px" src="${cartItem.product.img}"/></td>
+      <td>${cartItem.quality}</td>
+      <td>
+          <button class="btn btn-danger" onclick="deleteProductToCart(${cartItem.product.id})">Xóa</button>
+      </td>
+    </tr>
+    `;
+  });
+  getEle("bodyAddToCart").innerHTML = content;
+  getEle("totalPay").innerHTML = "Total: " + total;
+
+}
+
+//render HTMl
 
 function renderHTML(data) {
   var content = "";
@@ -60,7 +88,7 @@ function renderHTML(data) {
               <i class="fa fa-star"></i>
             </div>
             <div>
-              <button class="btnPhone-shadow">
+              <button class="btnPhone-shadow" onclick="addToCart(${product.id})">
                 <i class="fa fa-shopping-cart"></i> Buy Now
               </button>
             </div>
@@ -71,6 +99,64 @@ function renderHTML(data) {
       `;
   });
   getEle("product__content").innerHTML = content;
+}
+//Add to carrt
+function addToCart(productId) {
+  var totalQuality =1;
+  service
+    .getProductById(productId)
+    .then(function (result) {
+      var cartItem = new CartItem(result.data, 1);
+
+      cart.push(cartItem);
+      totalQuality += 1;
+    })
+
+    .catch(function (error) {
+      console.log(error);
+    });
+    
+    cart.forEach(function (cartItem) {
+      totalQuality += cartItem.quality;
+    });
+  getEle("total-qty").innerHTML = totalQuality;
+
+}
+//Clear
+function clearData() {
+  cart = [];
+  getEle("total-qty").innerHTML = 0;
+  renderPay();
+  
+};
+function payAll() {
+  alert("Thanh cong");
+  cart = [];
+  getEle("total-qty").innerHTML = 0;
+  renderPay();
+
+}
+
+//Delete Pay
+function deleteProductToCart(productId) {
+  var totalQuality = $("#total-qty").text()*1;
+  cart.forEach(function (cartItem) {
+    if(parseInt(cartItem.product.id) === productId ) {
+      var index= cart.indexOf(cartItem);
+      if (cart.length > 1) {
+        cart = cart.slice(index, index + 1);
+        totalQuality -= cartItem.quality;
+      } else {
+        cart = [];
+        totalQuality = 0;
+      }
+      
+    }
+  });
+
+getEle("total-qty").innerHTML = totalQuality;
+renderPay();
+
 }
 
 //4. Select product

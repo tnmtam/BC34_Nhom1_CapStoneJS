@@ -87,16 +87,16 @@
           </ul>
           <div class="header__cart"  >
             <button
+            onclick="renderPay()"
               class="header__cart-btn "
               data-toggle="modal"
-              data-target="#myModal"
-              style="width: 50px;"
+              data-target="#myModalPay"
+              style="width: 40px; height:60px; border-radius: 40%;"
             >
-              <i class="header__cart-icon fa-solid fa-cart-shopping fa-2xl" ></i>
-              <div class="header__cart-price">
-                <p class="header__cart-num"><span>0</span><sub>$</sub></p>
-              </div>
-          
+              <i class="header__cart-icon fa-solid fa-cart-shopping" style="font-size:20px; margin-top:10px"></i>
+              
+              <span id="total-qty">0</span>
+            
             </button>
           </div>
         </div>
@@ -129,6 +129,41 @@
         </div>
       </div>
     </section>
+    <!-- The Modal Pay -->
+    <div class="modal fade" id="myModalPay">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Giỏ hàng</h4>
+            <button  type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div>
+            <table>
+              <tr>
+                <th>Stt</th>
+                <th>Tên sp</th>
+                <th>Giá</th>
+                <th>Hinh ảnh</th>
+                <th>số lượng</th>
+                <th>Action</th>
+              </tr>
+              <tbody id="bodyAddToCart"></tbody>
+            </table>
+          </div>
+          <div id="totalPay"></div>
+          <div>
+            <button id="pay" onclick="payAll()">Thanh toan</button>
+            <button id="clear" onclick="clearData()">Clear</button>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
     <section class="products container section">
       <h2 class="section-title">-Featured Products-</h2>
       <div id="loading" class="loader"></div>
@@ -198,6 +233,7 @@
     <script src="./src/models/product.js"></script>
     <script src="./src/services/service.js"></script>
     <script src="./src/controller/main.js"></script>
+    <script src="./src/models/cartItem.js"></script>
     <script src="./src/controller/cart.js"></script>
 
   </body>
