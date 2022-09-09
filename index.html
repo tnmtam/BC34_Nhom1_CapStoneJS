@@ -83,22 +83,17 @@
             <li class="nav-item">
               <a class="nav-link" href="./admin.html">For Admin</a>
             </li>
-            
-          </ul>
-          <div class="header__cart"  >
-            <button
-            onclick="renderPay()"
-              class="header__cart-btn "
+            <li style="margin-top:20px ;">
+              <!--  -->
+              <!--  -->
+
+              <em onclick="renderPay()"
               data-toggle="modal"
-              data-target="#myModalPay"
-              style="width: 40px; height:60px; border-radius: 40%;"
-            >
-              <i class="header__cart-icon fa-solid fa-cart-shopping" style="font-size:20px; margin-top:10px"></i>
-              
+              data-target="#myModalPay" class="fa-solid fa-cart-shopping fa-2xl"></em>
+
               <span id="total-qty">0</span>
-            
-            </button>
-          </div>
+            </li>
+          </ul>
         </div>
       </nav>
     </header>
@@ -235,6 +230,5 @@
     <script src="./src/controller/main.js"></script>
     <script src="./src/models/cartItem.js"></script>
     <script src="./src/controller/cart.js"></script>
-
   </body>
 </html>
