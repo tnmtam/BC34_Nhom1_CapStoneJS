@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -232,3 +233,239 @@
     <script src="./src/controller/cart.js"></script>
   </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberPhone</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- BS4 CSS     -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      crossorigin="anonymous"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <style>
+      .loader {
+        border: 16px solid #f3f3f3; /* Light grey */
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+        margin: auto auto;
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="./css/main.css" />
+  </head>
+
+  <body>
+    <header>
+      <nav class="phoneNav container navbar navbar-expand-lg">
+        <a class="navbar-brand" href="#">CyberPhone</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#phoneNavbar"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon">
+            <i class="fa fa-bars"></i>
+          </span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="phoneNavbar">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#">Shop</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./admin.html">For Admin</a>
+            </li>
+            <li style="margin-top:20px ;">
+              <!--  -->
+              <!--  -->
+
+              <em onclick="renderPay()"
+              data-toggle="modal"
+              data-target="#myModalPay" class="fa-solid fa-cart-shopping fa-2xl"></em>
+
+              <span id="total-qty">0</span>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <section class="phoneCarousel">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6 d-flex align-items-center">
+            <div>
+              <h1>CyberPhone</h1>
+              <h3>Best Smartphone of 2022!</h3>
+              <p>
+                This is a project using mockAPI to create data from the database
+                , you can select the product add to shopping cart and purchase .
+              </p>
+              <div>
+                <button class="btnPhone-white mr-2">
+                  <i class="fa fa-info-circle"></i> More Info
+                </button>
+                <button class="btnPhone-blue">
+                  <i class="fa fa-shopping-cart"></i> Shop
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-md-block d-none">
+            <img class="img-fluid" src="./img/product-header2.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- The Modal Pay -->
+    <div class="modal fade" id="myModalPay">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Giỏ hàng</h4>
+            <button  type="button" class="close" data-dismiss="modal">
+              &times;
+            </button>
+          </div>
+          <!-- Modal body -->
+          <section>
+            <table>
+              <tr>
+                <th>N.o</th>
+                <th>Tên</th>
+                <th>Giá</th>
+                <th>Hinh ảnh</th>
+                <th>Số lượng</th>
+                <th>Action</th>
+              </tr>
+              <tbody id="bodyAddToCart"></tbody>
+            </table>
+          </section>
+          <div id="totalPay" class="btn btn-info"></div>
+          <div>
+            <button id="pay" class="btn btn-primary" onclick="payAll()">Thanh toán</button>
+            <button id="clear" class="btn btn-warning" onclick="clearData()">Xoá tất cả sản phẩm</button>
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer"></div>
+        </div>
+      </div>
+    </div>
+    <section class="products container section">
+      <h2 class="section-title">-Featured Products-</h2>
+      <div id="loading" class="loader"></div>
+      <div class="custom-select" style="width: 200px">
+        <select id="myChoice" onchange="phoneChange()">
+          <option>Chọn sản phẩm :</option>
+          <option type="SamSung">SamSung</option>
+          <option type="Apple">Apple</option>
+        </select>
+      </div>
+      <div class="products__content">
+        <div id="product__content" class="row">
+          <!-- san pham nam day -->
+        </div>
+      </div>
+    </section>
+
+    <footer class="footerPhone">
+      <img
+        class="img-fluid footer__light"
+        src="./img/angle-up-light.svg"
+        alt=""
+      />
+
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-4">© 2021</div>
+          <div class="col-8">
+            <ul class="nav justify-content-end">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Shop</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Thư viện hỗ trợ jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <!-- BS4 JS -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+    ></script>
+    <!--Axios thu vien lay data API-->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"
+      integrity="sha512-odNmoc1XJy5x1TMVMdC7EMs3IVdItLPlCeL5vSUPN2llYKMJ2eByTTAIiiuqLg+GdNr9hF6z81p27DArRFKT7A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="./src/models/product.js"></script>
+    <script src="./src/services/service.js"></script>
+    <script src="./src/controller/main.js"></script>
+    <script src="./src/models/cartItem.js"></script>
+    <script src="./src/controller/cart.js"></script>
+  </body>
+</html>
+>>>>>>> 47d0f6d6281fc64773ed8bdee0a98ddea19c7207

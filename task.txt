@@ -1,0 +1,7 @@
+    Website bán hàng
+Thái: 
+    Phần 1 : Tạo API , Xây dựng lớp đối tượng , Hiển thị danh sách sản phẩm , filter sản phẩm ,
+    Phần 2 : validation
+Tâm:
+    Phần 1 : Chọn sp vào giỏ hàng , In giỏ hàng ra màn hình , tăng chỉnh số lượng , in tổng tiền , thanh toán , remove sản phẩm
+    Phần 2 : Axios , chức năng admin
