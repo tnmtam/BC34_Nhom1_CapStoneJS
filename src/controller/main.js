@@ -32,7 +32,9 @@ fetchData();
 function renderPay() {
   var content = "";
   var total = 0;
+  var i = 0;
   cart.forEach(function (cartItemData) {
+    i++;
     var quality = cartItemData.quality * 1;
     var price =  cartItemData.product.price * 1;
     total = 0 + parseInt(total + quality * price);
@@ -53,9 +55,15 @@ function renderPay() {
       </td>
     </tr>
     `;
+    if (i === cart.length) {
+      getEle("bodyAddToCart").innerHTML = content;
+      getEle("totalPay").innerHTML = "Total: " + total;
+    }
   });
-  getEle("bodyAddToCart").innerHTML = content;
-  getEle("totalPay").innerHTML = "Total: " + total;
+  if (cart.length === 0) {
+    getEle("bodyAddToCart").innerHTML = content;
+    getEle("totalPay").innerHTML = "Total: " + total;
+  }
 
 }
 
