@@ -32,18 +32,24 @@ fetchData();
 function renderPay() {
   var content = "";
   var total = 0;
-  cart.forEach(function (cartItem) {
-    total = 0 + parseInt(total + cartItem.product.price*1);
+  cart.forEach(function (cartItemData) {
+    var quality = cartItemData.quality * 1;
+    var price =  cartItemData.product.price * 1;
+    total = 0 + parseInt(total + quality * price);
     content += `
     
     <tr>
-      <td>${cartItem.product.id}</td>
-      <td>${cartItem.product.name}</td>
-      <td>${cartItem.product.price}</td>
-      <td><img width="50px" src="${cartItem.product.img}"/></td>
-      <td>${cartItem.quality}</td>
+      <td>${cartItemData.product.id}</td>
+      <td>${cartItemData.product.name}</td>
+      <td>${cartItemData.product.price}</td>
+      <td><img width="50px" src="${cartItemData.product.img}"/></td>
       <td>
-          <button class="btn btn-danger" onclick="deleteProductToCart(${cartItem.product.id})">Xóa</button>
+      <button style="border:0; font-weight:bold;" onclick="deleteProductToCart(${cartItemData.product.id}, 1)">- </button>
+        ${cartItemData.quality}
+        <button style="border:0; font-weight:bold;" onclick="addToCart(${cartItemData.product.id})"> +</button>
+      </td>
+      <td>
+          <button class="btn btn-danger" onclick="deleteProductToCart(${cartItemData.product.id}, 0)">Xóa</button>
       </td>
     </tr>
     `;
@@ -102,24 +108,36 @@ function renderHTML(data) {
 }
 //Add to carrt
 function addToCart(productId) {
-  var totalQuality =1;
+  var totalQuality = 0;
+  var alreadyAdd = false;
+  var newCart = [];
   service
     .getProductById(productId)
     .then(function (result) {
-      var cartItem = new CartItem(result.data, 1);
-
-      cart.push(cartItem);
-      totalQuality += 1;
+      cart.forEach(function (cartItemOld){
+          if (parseInt(cartItemOld.product.id) === productId) {
+            cartItemOld.quality += 1;
+            alreadyAdd = true;
+          }
+          newCart.push(cartItemOld);
+      });
+      if (!alreadyAdd) {
+        var cartItem = new CartItem(result.data, 1);
+        newCart.push(cartItem);
+      }
+      cart = newCart;
+    
+      cart.forEach(function (cartItem) {
+        totalQuality += cartItem.quality;
+      });
+      getEle("total-qty").innerHTML = totalQuality;
+      renderPay();
     })
 
     .catch(function (error) {
       console.log(error);
     });
     
-    cart.forEach(function (cartItem) {
-      totalQuality += cartItem.quality;
-    });
-  getEle("total-qty").innerHTML = totalQuality;
 
 }
 //Clear
@@ -138,24 +156,27 @@ function payAll() {
 }
 
 //Delete Pay
-function deleteProductToCart(productId) {
+function deleteProductToCart(productId, numberQuality) {
   var totalQuality = $("#total-qty").text()*1;
-  cart.forEach(function (cartItem) {
+  var newCart = [];
+  for(var i = 0; i < cart.length; i++) {
+    var cartItem = cart[i];
     if(parseInt(cartItem.product.id) === productId ) {
-      var index= cart.indexOf(cartItem);
-      if (cart.length > 1) {
-        cart = cart.slice(index, index + 1);
-        totalQuality -= cartItem.quality;
+      if (numberQuality > 0 && cartItem.quality > 0 && cartItem.quality > numberQuality) {
+        totalQuality -= numberQuality;
+        cartItem.quality -= numberQuality;
+        newCart.push(cartItem);
       } else {
-        cart = [];
-        totalQuality = 0;
+        totalQuality -= cartItem.quality;
       }
-      
+    } else {
+      newCart.push(cartItem)
     }
-  });
-
-getEle("total-qty").innerHTML = totalQuality;
-renderPay();
+  };
+  cart = newCart;
+  
+  getEle("total-qty").innerHTML = totalQuality;
+  renderPay();
 
 }
 
