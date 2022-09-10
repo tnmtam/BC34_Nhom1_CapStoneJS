@@ -1,7 +1,6 @@
 var service = new Service();
 var cart = [];
 
-
 function getEle(id) {
   return document.getElementById(id);
 }
@@ -52,17 +51,19 @@ function renderPay() {
       </td>
       <td>
           <button class="btn btn-danger" onclick="deleteProductToCart(${cartItemData.product.id}, 0)">Xóa</button>
+          
+          
       </td>
     </tr>
     `;
     if (i === cart.length) {
       getEle("bodyAddToCart").innerHTML = content;
-      getEle("totalPay").innerHTML = "Total: " + total;
+      getEle("totalPay").innerHTML = "Tổng thanh toán: " + total + " $ ";
     }
   });
   if (cart.length === 0) {
     getEle("bodyAddToCart").innerHTML = content;
-    getEle("totalPay").innerHTML = "Total: " + total;
+    getEle("totalPay").innerHTML = "Tổng thanh toán: " + total + " $ ";
   }
 
 }
@@ -86,8 +87,6 @@ function renderHTML(data) {
               <p class="cardPhone__text">Camera sau : ${product.backCamera}</p>
               <p class="cardPhone__text">Camera trước : ${product.frontCamera}</p>
               <p class="cardPhone__text">Loại : ${product.type}</p>
-
-
             </div>
             <div>
               <h3 class="cardPhone__title">$${product.price}</h3>
@@ -116,9 +115,12 @@ function renderHTML(data) {
 }
 //Add to carrt
 function addToCart(productId) {
+  var newCart = [];
   var totalQuality = 0;
   var alreadyAdd = false;
-  var newCart = [];
+  
+
+
   service
     .getProductById(productId)
     .then(function (result) {
@@ -134,14 +136,15 @@ function addToCart(productId) {
         newCart.push(cartItem);
       }
       cart = newCart;
-    
+      
       cart.forEach(function (cartItem) {
         totalQuality += cartItem.quality;
       });
       getEle("total-qty").innerHTML = totalQuality;
       renderPay();
+      setLocalStorage();
     })
-
+    
     .catch(function (error) {
       console.log(error);
     });
@@ -210,3 +213,5 @@ function phoneChange() {
       console.log(error);
     });
 }
+
+

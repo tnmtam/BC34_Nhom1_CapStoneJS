@@ -136,23 +136,23 @@
             </button>
           </div>
           <!-- Modal body -->
-          <div>
+          <section>
             <table>
               <tr>
-                <th>Stt</th>
-                <th>Tên sp</th>
+                <th>N.o</th>
+                <th>Tên</th>
                 <th>Giá</th>
                 <th>Hinh ảnh</th>
-                <th>số lượng</th>
+                <th>Số lượng</th>
                 <th>Action</th>
               </tr>
               <tbody id="bodyAddToCart"></tbody>
             </table>
-          </div>
-          <div id="totalPay"></div>
+          </section>
+          <div id="totalPay" class="btn btn-info"></div>
           <div>
-            <button id="pay" onclick="payAll()">Thanh toan</button>
-            <button id="clear" onclick="clearData()">Clear</button>
+            <button id="pay" class="btn btn-primary" onclick="payAll()">Thanh toán</button>
+            <button id="clear" class="btn btn-warning" onclick="clearData()">Xoá tất cả sản phẩm</button>
           </div>
           <!-- Modal footer -->
           <div class="modal-footer"></div>

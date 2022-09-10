@@ -271,3 +271,10 @@ header #phoneNavbar .active .nav-link::after {
   opacity: 0.75;
 }
 /*# sourceMappingURL=main.css.map */
+td { 
+  padding: 10px;
+}
+table { 
+  border-spacing: 10px;
+  border-collapse: separate;
+}
