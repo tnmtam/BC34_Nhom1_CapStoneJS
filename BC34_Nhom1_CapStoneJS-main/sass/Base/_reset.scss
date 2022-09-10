@@ -1,0 +1,21 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    font-family: 'Nunito Sans', sans-serif;
+    @include styleText($fs-1,$fw-1,$color-dark-1);
+    background-color: $color-white-1;
+}
+
+.section{
+    padding: $pd-5 0;
+}
+
+.section-title{
+    margin-bottom: $mg-3;
+    text-align: center;
+    @include styleText($fs-6,$fw-3,$color-blue-1);
+    letter-spacing: $ls-1;
+}

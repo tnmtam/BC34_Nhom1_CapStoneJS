@@ -1,0 +1,27 @@
+.btnPhone-white{
+    @include styleButton(transparent,$pd-3 + 0.5,$pd-4,$bd-1 solid $color-blue-2,$bd-2,$ls-2);
+    @include styleText($fs-1,$fw-2,$color-blue-2);
+    box-shadow: 0 3px 6px $color-blue-3;
+    transition: .5s;
+    &:hover{
+        @include styleButtonHover($color-blue-2,$color-blue-2,$color-white-3);
+    }
+}
+.btnPhone-blue{
+    @include styleButton(linear-gradient(120deg, #60a4f4, #2a73dd),$pd-3 + 2.5,$pd-4 + 2,none,$bd-2,$ls-2);
+    @include styleText($fs-1,$fw-2,$color-white-3);
+    transition: .5s;
+    &:hover{
+        opacity: 0.75;
+    }
+}
+
+.btnPhone-shadow{
+    @include styleButton($color-white-1,$pd-6,$pd-1 - 5,none,$bd-1 + 2,$ls-2);
+    @include styleText($fs-1 - 4,$fw-2,$color-blue-2);
+    box-shadow: 2px 2px 4px $color-white-2, -2px -2px 4px $color-white-3;
+    transition: .5s;
+    &:hover{
+        box-shadow: inset 1px 1px 3px $color-white-2,inset -2px -2px 5px $color-white-3;
+    }
+}
